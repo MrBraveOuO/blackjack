@@ -17,7 +17,10 @@
 #define diamond 04               //Used to print diamond symbol
 #define heart 03                 //Used to print heart symbol
 #define RESULTS "Blackjack.txt"  //File name is Blackjack
- 
+typedef struct card{
+	const int *face;
+	const char *suit;
+}Card;
 //Global Variables
 int k;
 int l;
@@ -29,23 +32,28 @@ int bet;
 int random_card;
 int player_total=0;
 int dealer_total;
- 
+
+
 //Function Prototypes
-int clubcard();      //Displays Club Card Image
-int diamondcard();   //Displays Diamond Card Image
-int heartcard();     //Displays Heart Card Image
-int spadecard();     //Displays Spade Card Image
-int randcard();      //Generates random card
+void showcard(Card * const wPlay,Card * const Dealer,int * p_sheet,int * d_sheet);
+void fillDeck(Card * const wDeck,const int *wFace[],const char * wSuit[]);
+void shuffle(Card * const wDeck);
+void deal(const Card * const wDeck);
+int givepcard(Card * const wDeck,Card * const wPlay,int * t_sheet,int * p_sheet);
+int givedcard(Card * const wDeck,Card * const Dealer,int * t_sheet,int * d_sheet);
 int betting();       //Asks user amount to bet
 void asktitle();     //Asks user to continue
 void rules();        //Prints "Rules of Vlad's Blackjack" menu
 void play();         //Plays game
-void dealer();       //Function to play for dealer AI
-void stay();         //Function for when user selects 'Stay'
+void stay(Card * const wDeck,Card * const wPlay,Card * const Dealer,int * t_sheet,int p_sheet,int d_sheet);         //Function for when user selects 'Stay'
 void cash_test();    //Test for if user has cash remaining in purse
 void askover();      //Asks if user wants to continue playing
 void fileresults();  //Prints results into Blackjack.txt file in program directory
- 
+void Delay(unsigned int secs) 
+{
+ unsigned int retTime = time(0) + secs;   
+ while (time(0) < retTime);               
+}
 //Main Function
 int main(void)
 {
@@ -53,40 +61,21 @@ int main(void)
     printf("\n");
     printf("\n");
     printf("\n");
-    printf("\n              222                111                            ");
-    printf("\n            222 222            11111                              ");
-    printf("\n           222   222          11 111                            ");
-    printf("\n                222              111                               ");
-    printf("\n               222               111                           ");  
-    printf("\n");
-    printf("\n%c%c%c%c%c     %c%c            %c%c         %c%c%c%c%c    %c    %c                ", club, club, club, club, club, spade, spade, diamond, diamond, heart, heart, heart, heart, heart, club, club); 
-    printf("\n%c    %c    %c%c           %c  %c       %c     %c   %c   %c              ", club, club, spade, spade, diamond, diamond, heart, heart, club, club);           
-    printf("\n%c    %c    %c%c          %c    %c     %c          %c  %c               ", club, club, spade, spade, diamond, diamond, heart, club, club);                       
-    printf("\n%c%c%c%c%c     %c%c          %c %c%c %c     %c          %c %c              ", club, club, club, club, club, spade, spade, diamond, diamond, diamond, diamond, heart, club, club);     
-    printf("\n%c    %c    %c%c         %c %c%c%c%c %c    %c          %c%c %c             ", club, club, spade, spade, diamond, diamond, diamond, diamond, diamond, diamond, heart, club, club, club);                      
-    printf("\n%c     %c   %c%c         %c      %c    %c          %c   %c               ", club, club, spade, spade, diamond, diamond, heart, club, club);                                        
-    printf("\n%c     %c   %c%c        %c        %c    %c     %c   %c    %c             ", club, club, spade, spade, diamond, diamond, heart, heart, club, club);                                                           
-    printf("\n%c%c%c%c%c%c    %c%c%c%c%c%c%c   %c        %c     %c%c%c%c%c    %c     %c            ", club, club, club, club, club, club, spade, spade, spade, spade, spade, spade, spade, diamond, diamond, heart, heart, heart, heart, heart, club, club);                                                                                    
-    printf("\n");    
-    printf("\n                        21                                   ");
-     
-    printf("\n     %c%c%c%c%c%c%c%c      %c%c         %c%c%c%c%c    %c    %c                ", diamond, diamond, diamond, diamond, diamond, diamond, diamond, diamond, heart, heart, club, club, club, club, club, spade, spade);                    
-    printf("\n        %c%c        %c  %c       %c     %c   %c   %c              ", diamond, diamond, heart, heart, club, club, spade, spade);                                     
-    printf("\n        %c%c       %c    %c     %c          %c  %c               ", diamond, diamond, heart, heart, club, spade, spade);                                          
-    printf("\n        %c%c       %c %c%c %c     %c          %c %c              ", diamond, diamond, heart, heart, heart, heart, club, spade, spade);                                    
-    printf("\n        %c%c      %c %c%c%c%c %c    %c          %c%c %c             ", diamond, diamond, heart, heart, heart, heart, heart, heart, club, spade, spade, spade);                                               
-    printf("\n        %c%c      %c      %c    %c          %c   %c               ", diamond, diamond, heart, heart, club, spade, spade);                                                                              
-    printf("\n     %c  %c%c     %c        %c    %c     %c   %c    %c             ", diamond, diamond, diamond, heart, heart, club, spade, spade);                                                                                                              
-    printf("\n      %c%c%c      %c        %c     %c%c%c%c%c    %c     %c            ", diamond, diamond, diamond, heart, heart, club, club, club, club, club, spade, spade);                                                                                                                                       
-    printf("\n"); 
-    printf("\n         222                     111                         ");
-    printf("\n        222                      111                         ");
-    printf("\n       222                       111                         ");
-    printf("\n      222222222222222      111111111111111                       ");
-    printf("\n      2222222222222222    11111111111111111                         ");
+    printf("=================================================================================\n");
+	printf("		$$$$    $         $      $$$$   $   $     $$$$$$$$      $\n");
+	printf("		$   $   $        $ $    $       $  $             $    $ $\n");
+	printf("		$$$$    $       $   $   $       $$$              $   $  $\n");
+	printf("		$   $   $       $$$$$   $       $  $             $      $\n");
+	printf("		$$$$    $$$$$   $   $    $$$$   $   $     $$$$$$$$      $\n");
+	
+	printf("		    $$$$$     $      $$$$   $   $         $             $\n");
+	printf("		       $     $ $    $       $  $          $             $\n");
+	printf("		       $    $   $   $       $$$           $             $\n");
+	printf("		    $  $    $$$$$   $       $  $          $             $\n");
+	printf("		     $$$    $   $    $$$$   $   $         $$$$$$$$   $$$$$$$\n");
+	printf("==================================================================================\n");
     printf("\n");
     printf("\n");
-     
     asktitle();
      
     printf("\n");
@@ -100,9 +89,9 @@ void asktitle() // Function for asking player if they want to continue
     char choice1;
     int choice2;
      
-     printf("\n                 Are You Ready?");
-     printf("\n                ----------------");
-     printf("\n                      (Y/N)\n                        ");
+     printf("\n               		  Are You Ready?");
+     printf("\n               		 ----------------");
+     printf("\n                     	       (Y/N)\n                        ");
      scanf("\n%c",&choice1);
  
     while((choice1!='Y') && (choice1!='y') && (choice1!='N') && (choice1!='n')) // If invalid choice entered
@@ -222,339 +211,35 @@ void rules() //Prints "Rules of Vlad's Blackjack" list
     return;
 } // End function
  
-int clubcard() //Displays Club Card Image
-{
-     
-     
-    srand((unsigned) time(NULL)); //Generates random seed for rand() function
-    k=rand()%13+1;
-     
-    if(k<=9) //If random number is 9 or less, print card with that number
-    {
-    //Club Card
-    printf("-------\n");
-    printf("|%c    |\n", club);
-    printf("|  %d  |\n", k);
-    printf("|    %c|\n", club);
-    printf("-------\n");
-    }
-     
-     
-    if(k==10) //If random number is 10, print card with J (Jack) on face
-    {
-    //Club Card
-    printf("-------\n");
-    printf("|%c    |\n", club);
-    printf("|  J  |\n");
-    printf("|    %c|\n", club);
-    printf("-------\n");
-    }
-     
-     
-    if(k==11) //If random number is 11, print card with A (Ace) on face
-    {
-    //Club Card
-    printf("-------\n");
-    printf("|%c    |\n", club);
-    printf("|  A  |\n");
-    printf("|    %c|\n", club);
-    printf("-------\n");
-    if(player_total<=10) //If random number is Ace, change value to 11 or 1 depending on dealer total
-         {
-             k=11;
-         }
-          
-         else
-         {
- 
-             k=1;
-         }
-    }
-     
-     
-    if(k==12) //If random number is 12, print card with Q (Queen) on face
-    {
-    //Club Card
-    printf("-------\n");
-    printf("|%c    |\n", club);
-    printf("|  Q  |\n");
-    printf("|    %c|\n", club);
-    printf("-------\n");
-    k=10; //Set card value to 10
-    }
-     
-     
-    if(k==13) //If random number is 13, print card with K (King) on face
-    {
-    //Club Card
-    printf("-------\n");
-    printf("|%c    |\n", club);
-    printf("|  K  |\n");
-    printf("|    %c|\n", club);
-    printf("-------\n");
-    k=10; //Set card value to 10
-    }
-    return k;          
-}// End function
- 
-int diamondcard() //Displays Diamond Card Image
-{
-     
-     
-    srand((unsigned) time(NULL)); //Generates random seed for rand() function
-    k=rand()%13+1;
-     
-    if(k<=9) //If random number is 9 or less, print card with that number
-    {
-    //Diamond Card
-    printf("-------\n");
-    printf("|%c    |\n", diamond);
-    printf("|  %d  |\n", k);
-    printf("|    %c|\n", diamond);
-    printf("-------\n");
-    }
-     
-    if(k==10) //If random number is 10, print card with J (Jack) on face
-    {
-    //Diamond Card
-    printf("-------\n");
-    printf("|%c    |\n", diamond);
-    printf("|  J  |\n");
-    printf("|    %c|\n", diamond);
-    printf("-------\n");
-    }
-     
-    if(k==11) //If random number is 11, print card with A (Ace) on face
-    {
-    //Diamond Card
-    printf("-------\n");
-    printf("|%c    |\n", diamond);
-    printf("|  A  |\n");
-    printf("|    %c|\n", diamond);
-    printf("-------\n");
-    if(player_total<=10) //If random number is Ace, change value to 11 or 1 depending on dealer total
-         {
-             k=11;
-         }
-          
-         else
-         {
-             k=1;
-         }
-    }
-     
-    if(k==12) //If random number is 12, print card with Q (Queen) on face
-    {
-    //Diamond Card
-    printf("-------\n");
-    printf("|%c    |\n", diamond);
-    printf("|  Q  |\n");
-    printf("|    %c|\n", diamond);
-    printf("-------\n");
-    k=10; //Set card value to 10
-    }
-     
-    if(k==13) //If random number is 13, print card with K (King) on face
-    {
-    //Diamond Card
-    printf("-------\n");
-    printf("|%c    |\n", diamond);
-    printf("|  K  |\n");
-    printf("|    %c|\n", diamond);
-    printf("-------\n");
-    k=10; //Set card value to 10
-    }
-    return k;
-}// End function
- 
-int heartcard() //Displays Heart Card Image
-{
-     
-     
-    srand((unsigned) time(NULL)); //Generates random seed for rand() function
-    k=rand()%13+1;
-     
-    if(k<=9) //If random number is 9 or less, print card with that number
-    {
-    //Heart Card
-    printf("-------\n");
-    printf("|%c    |\n", heart);
-    printf("|  %d  |\n", k);
-    printf("|    %c|\n", heart);
-    printf("-------\n");
-    }
-     
-    if(k==10) //If random number is 10, print card with J (Jack) on face
-    {
-    //Heart Card
-    printf("-------\n");
-    printf("|%c    |\n", heart);
-    printf("|  J  |\n");
-    printf("|    %c|\n", heart);
-    printf("-------\n");
-    }
-     
-    if(k==11) //If random number is 11, print card with A (Ace) on face
-    {
-    //Heart Card
-    printf("-------\n");
-    printf("|%c    |\n", heart);
-    printf("|  A  |\n");
-    printf("|    %c|\n", heart);
-    printf("-------\n");
-    if(player_total<=10) //If random number is Ace, change value to 11 or 1 depending on dealer total
-         {
-             k=11;
-         }
-          
-         else
-         {
-             k=1;
-         }
-    }
-     
-    if(k==12) //If random number is 12, print card with Q (Queen) on face
-    {
-    //Heart Card
-    printf("-------\n");
-    printf("|%c    |\n", heart);
-    printf("|  Q  |\n");
-    printf("|    %c|\n", heart);
-    printf("-------\n");
-    k=10; //Set card value to 10
-    }
-     
-    if(k==13) //If random number is 13, print card with K (King) on face
-    {
-    //Heart Card
-    printf("-------\n");
-    printf("|%c    |\n", heart);
-    printf("|  K  |\n");
-    printf("|    %c|\n", heart);
-    printf("-------\n");
-    k=10; //Set card value to 10
-    }
-    return k;
-} // End Function
- 
-int spadecard() //Displays Spade Card Image
-{
-     
-     
-    srand((unsigned) time(NULL)); //Generates random seed for rand() function
-    k=rand()%13+1;
-     
-    if(k<=9) //If random number is 9 or less, print card with that number
-    {
-    //Spade Card
-    printf("-------\n");
-    printf("|%c    |\n", spade);
-    printf("|  %d  |\n", k);
-    printf("|    %c|\n", spade);
-    printf("-------\n");
-    }
-     
-    if(k==10) //If random number is 10, print card with J (Jack) on face
-    {
-    //Spade Card
-    printf("-------\n");
-    printf("|%c    |\n", spade);
-    printf("|  J  |\n");
-    printf("|    %c|\n", spade);
-    printf("-------\n");
-    }
-     
-    if(k==11) //If random number is 11, print card with A (Ace) on face
-    {
-    //Spade Card
-    printf("-------\n");
-    printf("|%c    |\n", spade);
-    printf("|  A  |\n");
-    printf("|    %c|\n", spade);
-    printf("-------\n");
-    if(player_total<=10) //If random number is Ace, change value to 11 or 1 depending on dealer total
-         {
-             k=11;
-         }
-          
-         else
-         {
-             k=1;
-         }
-    }
-     
-    if(k==12) //If random number is 12, print card with Q (Queen) on face
-    {
-    //Spade Card
-    printf("-------\n");
-    printf("|%c    |\n", spade);
-    printf("|  Q  |\n");
-    printf("|    %c|\n", spade);
-    printf("-------\n");
-    k=10; //Set card value to 10
-    }
-     
-    if(k==13) //If random number is 13, print card with K (King) on face
-    {
-    //Spade Card
-    printf("-------\n");
-    printf("|%c    |\n", spade);
-    printf("|  K  |\n");
-    printf("|    %c|\n", spade);
-    printf("-------\n");
-    k=10; //Set card value to 10
-    }
-    return k;
-} // End Function
- 
-int randcard() //Generates random card
-{
-      
-                
-     srand((unsigned) time(NULL)); //Generates random seed for rand() function
-     random_card = rand()%4+1;
-      
-     if(random_card==1)
-     {  
-         clubcard();
-         l=k;
-     }
-      
-     if(random_card==2)
-     {
-         diamondcard();
-         l=k;
-     }
-      
-     if(random_card==3)
-     {
-         heartcard();
-         l=k;
-     }
-          
-     if(random_card==4)
-     {
-         spadecard();
-         l=k;
-     }   
-     return l;
-} // End Function  
  
 void play() //Plays game
-{
-      
+{      
      int p=0; // holds value of player_total
      int i=1; // counter for asking user to hold or stay (aka game turns)
      char choice3;
-      
+     Card deck[52];
+	 Card play[5];
+  	 Card dealer[5];
+	 const int *face[] = {1,2,3,4,5,6,7,8,9,10,11,12,13};
+	 const char *suit[] = {"Heart","Diamonds","Clubs","Spades"};
+	 int t_sheet=0;
+	 int p_sheet=0;
+	 int d_sheet=0;
+ 	 srand(time(NULL));
+	 fillDeck(deck,face,suit);
+	 shuffle(deck);
+	 deal(deck);	
      cash = cash;
      cash_test();
-     printf("\nCash: $%d\n",cash); //Prints amount of cash user has
-     randcard(); //Generates random card
+	 givepcard(deck,play,&t_sheet,&p_sheet);
      player_total = p + l; //Computes player total
      p = player_total;
      printf("\nYour Total is %d\n", p); //Prints player total
-     dealer(); //Computes and prints dealer total
+     givedcard(deck,dealer,&t_sheet,&d_sheet);
+     dealer_total = dealer_total + d;
+     showcard(play,dealer,p_sheet,d_sheet);
+     Delay(1);
+     printf("\nCash: $%d\n",cash); //Prints amount of cash user has
      betting(); //Prompts user to enter bet amount
         
      while(i<=21) //While loop used to keep asking user to hit or stay at most twenty-one times
@@ -562,6 +247,8 @@ void play() //Plays game
      {
          if(p==21) //If user total is 21, win
          {
+         	 printf("\nYour Total is %d\n", p);
+             printf("\nDealer Total is %d\n",dealer_total);
              printf("\nUnbelievable! You Win!\n");
              won = won+1;
              cash = cash+bet;
@@ -572,9 +259,10 @@ void play() //Plays game
       
          if(p>21) //If player total is over 21, loss
          {
+         	 printf("\nYour Total is %d\n", p);
+             printf("\nDealer Total is %d\n",dealer_total);
              printf("\nWoah Buddy, You Went WAY over.\n");
              loss = loss+1;
-             cash = cash - bet;
              printf("\nYou have %d Wins and %d Losses. Awesome!\n", won, loss);
              dealer_total=0;
              askover();
@@ -595,11 +283,12 @@ void play() //Plays game
  
              if((choice3=='H') || (choice3=='h')) // If Hit, continues
              {
-                 randcard();
+                 givepcard(deck,play,&t_sheet,&p_sheet);
                  player_total = p + l;
                  p = player_total;
+                 showcard(play,dealer,p_sheet,d_sheet);
                  printf("\nYour Total is %d\n", p);
-                 dealer();
+                 printf("\nDealer Total is %d\n",dealer_total);
                   if(dealer_total==21) //Is dealer total is 21, loss
                   {
                       printf("\nDealer Has the Better Hand. You Lose.\n");
@@ -612,7 +301,7 @@ void play() //Plays game
       
                   if(dealer_total>21) //If dealer total is over 21, win
                   {                     
-                      printf("\nDealer Has Went Over!. You Win!\n");
+					  printf("\nDealer Has Went Over!. You Win!\n");
                       won = won+1;
                       cash = cash+bet;
                       printf("\nYou have %d Wins and %d Losses. Awesome!\n", won, loss);
@@ -622,88 +311,52 @@ void play() //Plays game
              }
              if((choice3=='S') || (choice3=='s')) // If Stay, does not continue
              {
-                printf("\nYou Have Chosen to Stay at %d. Wise Decision!\n", player_total);
-                stay();
+                printf("\nYou Have Chosen to Stay at %d. Wise Decision!\n", player_total);                
+                stay(deck,play,dealer,t_sheet,p_sheet,d_sheet);
              }
           }
              i++; //While player total and dealer total are less than 21, re-do while loop
      } // End While Loop
 } // End Function
  
-void dealer() //Function to play for dealer AI
+void stay(Card * const wDeck,Card * const wPlay,Card * const Dealer,int * t_sheet,int p_sheet,int d_sheet) //Function for when user selects 'Stay'
 {
-     int z;
-      
-     if(dealer_total<17)
-     {
-      srand((unsigned) time(NULL) + 1); //Generates random seed for rand() function
-      z=rand()%13+1;
-      if(z<=10) //If random number generated is 10 or less, keep that value
-      {
-         d=z;
-          
-      }
-      
-      if(z>11) //If random number generated is more than 11, change value to 10
-      {
-         d=10;
-      }
-      
-      if(z==11) //If random number is 11(Ace), change value to 11 or 1 depending on dealer total
-      {
-         if(dealer_total<=10)
-         {
-             d=11;
-         }
-          
-         else
-         {
-             d=1;
-         }
-      }
-     dealer_total = dealer_total + d;
-     }
-           
-     printf("\nThe Dealer Has a Total of %d", dealer_total); //Prints dealer total
-      
-} // End Function
- 
-void stay() //Function for when user selects 'Stay'
-{
-     dealer(); //If stay selected, dealer continues going
+	 givedcard(wDeck,Dealer,&t_sheet,&d_sheet);
+	 dealer_total = dealer_total + d;
+     showcard(wPlay,Dealer,p_sheet,d_sheet);
      if(dealer_total>=17)
      {
-      if(player_total>=dealer_total) //If player's total is more than dealer's total, win
-      {
-         printf("\nUnbelievable! You Win!\n");
-         won = won+1;
-         cash = cash+bet;
-         printf("\nYou have %d Wins and %d Losses. Awesome!\n", won, loss);
-         dealer_total=0;
-         askover();
-      }
-      if(player_total<dealer_total) //If player's total is less than dealer's total, loss
-      {
-         printf("\nDealer Has the Better Hand. You Lose.\n");
-         loss = loss+1;
-         cash = cash - bet;
-         printf("\nYou have %d Wins and %d Losses. Awesome!\n", won, loss);
-         dealer_total=0;
-         askover();
-      }
-      if(dealer_total>21) //If dealer's total is more than 21, win
-      {
-         printf("\nUnbelievable! You Win!\n");
-         won = won+1;
-         cash = cash+bet;
-         printf("\nYou have %d Wins and %d Losses. Awesome!\n", won, loss);
-         dealer_total=0;
-         askover();
-      }
+     	if(dealer_total>21) //If dealer's total is more than 21, win
+     	 {
+		     printf("\nUnbelievable! You Win!\n");
+		     won = won+1;
+		     cash = cash+bet;
+		     printf("\nYou have %d Wins and %d Losses. Awesome!\n", won, loss);
+		     dealer_total=0;
+		     askover();
+     	 }
+     	else if(player_total>=dealer_total) //If player's total is more than dealer's total, win
+     	 {
+	         printf("\nUnbelievable! You Win!\n");
+	         won = won+1;
+	         cash = cash+bet;
+	         printf("\nYou have %d Wins and %d Losses. Awesome!\n", won, loss);
+	         dealer_total=0;
+	         askover();
+     	 }
+	    else if(player_total<dealer_total) //If player's total is less than dealer's total, loss
+    	{
+        	printf("\nDealer Has the Better Hand. You Lose.\n");
+         	loss = loss+1;
+        	cash = cash - bet;
+        	printf("\nYou have %d Wins and %d Losses. Awesome!\n", won, loss);
+         	dealer_total=0;
+         	askover();
+     	}     
      }
      else
      {
-         stay();
+        stay(wDeck,wPlay,Dealer,t_sheet,p_sheet,d_sheet);
      }
       
 } // End Function
@@ -785,4 +438,192 @@ void fileresults() //Prints results into Blackjack.txt file in program directory
     }
      fclose(fpresults);
      return;
-} // End Function
+} 
+void fillDeck(Card * const wDeck,const int *wFace[],const char * wSuit[])
+{
+	int i;
+	
+	for (i=0;i<=51;i++)
+	{
+		wDeck[i].face = wFace[ i % 13 ];
+		wDeck[i].suit = wSuit[ i / 13 ];
+	}
+}
+void shuffle(Card * const wDeck)
+{
+	int i;
+	int j;
+	Card temp;
+	
+	for(i=0;i<=51;i++)
+	{
+		j = rand() % 52;
+	
+		temp = wDeck[i];
+		wDeck[i] = wDeck[j];
+		wDeck[j] = temp;
+	}
+}
+void deal(const Card * const wDeck)
+{
+	int i;
+	
+	for(i=0;i<=51;i++)
+	{
+		printf("%5d of %-8s%s",wDeck[i].face,wDeck[i].suit,(i+1) % 4 ? " ": "\n");
+	}
+}
+int givepcard(Card * const wDeck,Card * const wPlay,int * t_sheet,int * p_sheet)
+{
+    wPlay[*p_sheet].face=wDeck[*t_sheet].face;
+    wPlay[*p_sheet].suit=wDeck[*t_sheet].suit;
+    if(wPlay[*p_sheet].face==1){
+     if(player_total<=10)
+        l=11;
+     else if(player_total>10)
+        l=1;
+    }
+    else if(wPlay[*p_sheet].face>10)
+        l=10;
+    else
+        l=wPlay[*p_sheet].face;
+    *p_sheet=*p_sheet+1;
+    *t_sheet=*t_sheet+1;
+    return l;
+}
+int givedcard(Card * const wDeck,Card * const wDealer,int * t_sheet,int * d_sheet)
+{
+    wDealer[*d_sheet].face=wDeck[*t_sheet].face;
+    wDealer[*d_sheet].suit=wDeck[*t_sheet].suit;
+
+        if(wDealer[*d_sheet].face==1){
+     if(dealer_total<=10)
+        d=11;
+     else if(dealer_total>10)
+        d=1;
+    }
+    else if(wDealer[*d_sheet].face>10)
+        d=10;
+    else
+        d=wDealer[*d_sheet].face;
+     *d_sheet=*d_sheet+1;
+     *t_sheet=*t_sheet+1;
+    return d;
+}
+void showcard(Card * const wPlay,Card * const Dealer,int * p_sheet,int * d_sheet)
+{
+    system("cls");
+    int i;
+    printf("\n電腦手牌:\n");
+    for(i=0;i<d_sheet;i++)
+    {
+        printf("------------    ");
+    }
+    printf("\n");
+     for(i=0;i<d_sheet;i++)
+    {
+       printf("|%-8s  |    ",Dealer[i].suit);
+    }
+    printf("\n");
+     for(i=0;i<d_sheet;i++)
+    {
+        printf("|          |    ");
+    }
+    printf("\n");
+    for(i=0;i<d_sheet;i++)
+    {
+        printf("|          |    ");
+    }
+    printf("\n");
+     for(i=0;i<d_sheet;i++)
+    {
+        if(Dealer[i].face==1)
+            printf("|    A     |    ");
+        else if(Dealer[i].face==11)
+            printf("|    J     |    ");
+        else if(Dealer[i].face==12)
+            printf("|    Q     |    ");
+        else if(Dealer[i].face==13)
+            printf("|    K     |    ");
+        else
+            printf("|    %2d    |    ",Dealer[i].face);
+    }
+    printf("\n");
+    for(i=0;i<d_sheet;i++)
+    {
+    printf("|          |    ");
+    }
+    printf("\n");
+    for(i=0;i<d_sheet;i++)
+    {
+        printf("|          |    ");
+    }
+    printf("\n");
+     for(i=0;i<d_sheet;i++)
+    {
+        printf("|  %8s|    ",Dealer[i].suit);
+    }
+        printf("\n");
+     for(i=0;i<d_sheet;i++)
+    {
+         printf("------------    ");
+    }
+    
+    printf("\n玩家手牌:\n");
+    Delay(1); 
+    
+    for(i=0;i<p_sheet;i++)
+    {
+        printf("------------    ");
+    }
+    printf("\n");
+     for(i=0;i<p_sheet;i++)
+    {
+       printf("|%-8s  |    ",wPlay[i].suit);
+    }
+    printf("\n");
+     for(i=0;i<p_sheet;i++)
+    {
+        printf("|          |    ");
+    }
+    printf("\n");
+    for(i=0;i<p_sheet;i++)
+    {
+        printf("|          |    ");
+    }
+    printf("\n");
+     for(i=0;i<p_sheet;i++)
+    {
+        if(wPlay[i].face==1)
+            printf("|    A     |    ");
+        else if(wPlay[i].face==11)
+            printf("|    J     |    ");
+        else if(wPlay[i].face==12)
+            printf("|    Q     |    ");
+        else if(wPlay[i].face==13)
+            printf("|    K     |    ");
+        else
+            printf("|    %2d    |    ",wPlay[i].face);
+    }
+    printf("\n");
+    for(i=0;i<p_sheet;i++)
+    {
+    printf("|          |    ");
+    }
+    printf("\n");
+    for(i=0;i<p_sheet;i++)
+    {
+        printf("|          |    ");
+    }
+    printf("\n");
+     for(i=0;i<p_sheet;i++)
+    {
+        printf("|  %8s|    ",wPlay[i].suit);
+    }
+        printf("\n");
+     for(i=0;i<p_sheet;i++)
+    {
+         printf("------------    ");
+    }
+    
+}// End Function
