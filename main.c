@@ -35,12 +35,12 @@ int dealer_total;
 
 
 //Function Prototypes
-void showcard(Card * const wPlay,Card * const Dealer,int * p_sheet,int * d_sheet);
-void fillDeck(Card * const wDeck,const int *wFace[],const char * wSuit[]);
-void shuffle(Card * const wDeck);
-void deal(const Card * const wDeck);
-int givepcard(Card * const wDeck,Card * const wPlay,int * t_sheet,int * p_sheet);
-int givedcard(Card * const wDeck,Card * const Dealer,int * t_sheet,int * d_sheet);
+void showcard(Card * const wPlay,Card * const Dealer,int * p_sheet,int * d_sheet);//圖形化顯示出電腦手牌以及玩家手牌  
+void fillDeck(Card * const wDeck,const int *wFace[],const char * wSuit[]);//設定出52張不同花色和數字的牌 
+void shuffle(Card * const wDeck);//打亂其排列順序 
+void deal(const Card * const wDeck);//顯示出Card的排序 
+int givepcard(Card * const wDeck,Card * const wPlay,int * t_sheet,int * p_sheet);//給玩家發一張牌，同時計算牌之得點 
+int givedcard(Card * const wDeck,Card * const Dealer,int * t_sheet,int * d_sheet);//給電腦發一張牌，同時計算牌之得點
 int betting();       //Asks user amount to bet
 void asktitle();     //Asks user to continue
 void rules();        //Prints "Rules of Vlad's Blackjack" menu
@@ -49,7 +49,7 @@ void stay(Card * const wDeck,Card * const wPlay,Card * const Dealer,int * t_shee
 void cash_test();    //Test for if user has cash remaining in purse
 void askover();      //Asks if user wants to continue playing
 void fileresults();  //Prints results into Blackjack.txt file in program directory
-void Delay(unsigned int secs) 
+void Delay(unsigned int secs) //延遲副程式 
 {
  unsigned int retTime = time(0) + secs;   
  while (time(0) < retTime);               
@@ -227,8 +227,7 @@ void play() //Plays game
 	 int d_sheet=0;
  	 srand(time(NULL));
 	 fillDeck(deck,face,suit);
-	 shuffle(deck);
-	 deal(deck);	
+	 shuffle(deck);	
      cash = cash;
      cash_test();
 	 givepcard(deck,play,&t_sheet,&p_sheet);
