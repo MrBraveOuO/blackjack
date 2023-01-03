@@ -2,6 +2,7 @@
 Order=0
 Focused=0
 [Editor_0]
+<<<<<<< HEAD
 CursorCol=1
 CursorRow=612
 <<<<<<< HEAD
@@ -9,4 +10,9 @@ TopLine=578
 =======
 TopLine=103
 >>>>>>> yan
+=======
+CursorCol=18
+CursorRow=788
+TopLine=729
+>>>>>>> wzy
 LeftChar=1
