@@ -2,7 +2,11 @@
 Order=0
 Focused=0
 [Editor_0]
-CursorCol=6
-CursorRow=580
-TopLine=61
+CursorCol=36
+CursorRow=615
+<<<<<<< HEAD
+TopLine=605
+=======
+TopLine=103
+>>>>>>> yan
 LeftChar=1
