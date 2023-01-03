@@ -1,0 +1,4 @@
+john 450
+devil 410
+jacky 500
+jacky 1000

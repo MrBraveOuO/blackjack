@@ -1,0 +1,41 @@
+﻿C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets(376,5): warning MSB8004: Intermediate 目錄結尾不是結尾斜線。這個建置執行個體將會加入此斜線，因為這樣才能正確評估 Intermediate 目錄。
+C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets(377,5): warning MSB8004: Output 目錄結尾不是結尾斜線。這個建置執行個體將會加入此斜線，因為這樣才能正確評估 Output 目錄。
+  Main.cpp
+c:\users\yao\desktop\code\blackjack\blackjack_vs\source\main.cpp(73): warning C4244: '正在初始化': 將 'time_t' 轉換為 'unsigned int'，由於類型不同，可能導致資料遺失
+c:\users\yao\desktop\code\blackjack\blackjack_vs\source\main.cpp(79): warning C4101: 'choice1': 未參考的區域變數
+c:\users\yao\desktop\code\blackjack\blackjack_vs\source\main.cpp(114): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.17763.0\ucrt\stdio.h(1274): note: 請參閱 'scanf' 的宣告
+c:\users\yao\desktop\code\blackjack\blackjack_vs\source\main.cpp(120): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.17763.0\ucrt\stdio.h(1274): note: 請參閱 'scanf' 的宣告
+c:\users\yao\desktop\code\blackjack\blackjack_vs\source\main.cpp(133): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.17763.0\ucrt\stdio.h(1274): note: 請參閱 'scanf' 的宣告
+c:\users\yao\desktop\code\blackjack\blackjack_vs\source\main.cpp(137): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.17763.0\ucrt\stdio.h(1274): note: 請參閱 'scanf' 的宣告
+c:\users\yao\desktop\code\blackjack\blackjack_vs\source\main.cpp(207): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.17763.0\ucrt\stdio.h(1274): note: 請參閱 'scanf' 的宣告
+c:\users\yao\desktop\code\blackjack\blackjack_vs\source\main.cpp(213): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.17763.0\ucrt\stdio.h(1274): note: 請參閱 'scanf' 的宣告
+c:\users\yao\desktop\code\blackjack\blackjack_vs\source\main.cpp(181): warning C4101: 'choice2': 未參考的區域變數
+c:\users\yao\desktop\code\blackjack\blackjack_vs\source\main.cpp(252): warning C4244: '引數': 將 'time_t' 轉換為 'unsigned int'，由於類型不同，可能導致資料遺失
+c:\users\yao\desktop\code\blackjack\blackjack_vs\source\main.cpp(296): warning C4996: 'kbhit': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _kbhit. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.17763.0\ucrt\conio.h(459): note: 請參閱 'kbhit' 的宣告
+c:\users\yao\desktop\code\blackjack\blackjack_vs\source\main.cpp(333): warning C4996: 'kbhit': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _kbhit. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.17763.0\ucrt\conio.h(459): note: 請參閱 'kbhit' 的宣告
+c:\users\yao\desktop\code\blackjack\blackjack_vs\source\main.cpp(244): warning C4101: 'a': 未參考的區域變數
+c:\users\yao\desktop\code\blackjack\blackjack_vs\source\main.cpp(459): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.17763.0\ucrt\stdio.h(1274): note: 請參閱 'scanf' 的宣告
+c:\users\yao\desktop\code\blackjack\blackjack_vs\source\main.cpp(465): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.17763.0\ucrt\stdio.h(1274): note: 請參閱 'scanf' 的宣告
+c:\users\yao\desktop\code\blackjack\blackjack_vs\source\main.cpp(477): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.17763.0\ucrt\stdio.h(1274): note: 請參閱 'scanf' 的宣告
+c:\users\yao\desktop\code\blackjack\blackjack_vs\source\main.cpp(483): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.17763.0\ucrt\stdio.h(1274): note: 請參閱 'scanf' 的宣告
+c:\users\yao\desktop\code\blackjack\blackjack_vs\source\main.cpp(498): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.17763.0\ucrt\stdio.h(1274): note: 請參閱 'scanf' 的宣告
+c:\users\yao\desktop\code\blackjack\blackjack_vs\source\main.cpp(502): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.17763.0\ucrt\stdio.h(1274): note: 請參閱 'scanf' 的宣告
+c:\users\yao\desktop\code\blackjack\blackjack_vs\source\main.cpp(518): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.17763.0\ucrt\stdio.h(208): note: 請參閱 'fopen' 的宣告
+c:\users\yao\desktop\code\blackjack\blackjack_vs\source\main.cpp(735): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.17763.0\ucrt\stdio.h(208): note: 請參閱 'fopen' 的宣告
+  Main.cpp.vcxproj -> C:\Users\Yao\Desktop\CODE\blackjack\BlackJack_VS\Main.cpp\Main.cpp\..\..\temp\debug\Main.cpp.exe
